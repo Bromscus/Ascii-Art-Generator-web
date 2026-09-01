@@ -1,0 +1,16 @@
+<!doctype html>
+<head>
+  <title>Ascii-art-web</title>
+</head>
+<body>
+  <form action="/ascii-art" method="POST">
+    <textarea name="text"></textarea>
+    <select name="styles" id="styles">
+      <option value="standard">standard</option>
+      <option value="thinkertoy">thinkertoy</option>
+      <option value="shadow">shadow</option>
+    </select>
+    <button type="submit">Generate</button>
+  </form>
+  <pre>{{.Result}}</pre>
+</body>
