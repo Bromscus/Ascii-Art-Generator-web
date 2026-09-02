@@ -36,17 +36,17 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	var err error
-	dataS, err = os.ReadFile("standard.txt")
+	dataS, err = os.ReadFile("Styles/standard.txt")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	dataT, err = os.ReadFile("thinkertoy.txt")
+	dataT, err = os.ReadFile("Styles/thinkertoy.txt")
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	dataSh, err = os.ReadFile("shadow.txt")
+	dataSh, err = os.ReadFile("Styles/shadow.txt")
 	if err != nil {
 		fmt.Println(err)
 		return
