@@ -66,6 +66,7 @@ func asciiArt(w http.ResponseWriter, r *http.Request) {
 	msg, isValid := ascii.IsValid(text)
 	if !isValid {
 		fmt.Fprintln(w, msg)
+		http.Error(w, "Status code 500: Internal Server error", http.StatusInternalServerError)
 		return
 	}
 
