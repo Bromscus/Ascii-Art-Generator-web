@@ -2,7 +2,7 @@
 
 ## Description
 
-ASCII Art Web is a Go web application that converts text into ASCII art. It supports the `standard`, `shadow`, and `thinkertoy` banner styles and displays the generated result in a browser.
+The project main idea is to switch the input to a stylized format called ascii format in which we have different banner styles which are supported: `standard`, `thinkertoy` and `shadow`.
 
 ## Authors
 
@@ -21,13 +21,13 @@ ASCII Art Web is a Go web application that converts text into ASCII art. It supp
 
 3. Enter text, select a banner style, and submit the form to generate ASCII art.
 
-The application listens on port `8080`.
 
 ## Implementation details: algorithm
 
-1. At startup, the application loads the three banner files: `standard.txt`, `shadow.txt`, and `thinkertoy.txt`.
-2. The submitted text and selected style are received by the `/ascii-art` HTTP handler.
-3. The selected banner file is split into lines. Each printable character is represented by 8 consecutive rows, with 9-line blocks used to locate the next character in the font data.
-4. The input is processed as runes so characters are handled as Unicode code points. The escaped sequence `\\n` starts a new output line.
-5. For each character, its 8 banner rows are appended to an output table.
-6. The completed rows are passed to the printer, which joins them into the final ASCII-art result and returns it to the client.
+1. Load the three banner files.
+2. Get the user's text and selected style.
+3. Split the selected banner into lines.
+4. Convert each character into its 8 line ASCII art.
+5. Join the characters together vertically in a horizontal line if there is no new lines.
+6. New lines (Enter key) are accepted along with `\n`.
+7. Return the final ASCII-art result to the user.
