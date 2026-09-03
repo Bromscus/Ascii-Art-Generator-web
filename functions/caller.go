@@ -10,7 +10,7 @@ import (
 func CloneStandard() {
 	fileURL := "https://learn.reboot01.com/git/root/public/raw/branch/master/subjects/ascii-art/standard.txt"
 
-	_, err := os.Stat("standard.txt")
+	_, err := os.Stat("formats/standard.txt")
 	if err == nil {
 		return
 	}
@@ -26,7 +26,7 @@ func CloneStandard() {
 	}
 	defer resp.Body.Close()
 
-	file, err := os.Create("standard.txt")
+	file, err := os.Create("formats/standard.txt")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -43,7 +43,7 @@ func CloneStandard() {
 func CloneThinktertoy() {
 	fileURL := "https://learn.reboot01.com/git/root/public/raw/branch/master/subjects/ascii-art/thinkertoy.txt"
 
-	_, err := os.Stat("thinktertoy.txt")
+	_, err := os.Stat("formats/thinktertoy.txt")
 	if err == nil {
 		return
 	}
@@ -59,7 +59,7 @@ func CloneThinktertoy() {
 	}
 	defer resp.Body.Close()
 
-	file, err := os.Create("thinkertoy.txt")
+	file, err := os.Create("formats/thinkertoy.txt")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -76,7 +76,7 @@ func CloneThinktertoy() {
 func CloneShadow() {
 	fileURL := "https://learn.reboot01.com/git/root/public/raw/branch/master/subjects/ascii-art/shadow.txt"
 
-	_, err := os.Stat("shadow.txt")
+	_, err := os.Stat("formats/shadow.txt")
 	if err == nil {
 		return
 	}
@@ -92,7 +92,7 @@ func CloneShadow() {
 	}
 	defer resp.Body.Close()
 
-	file, err := os.Create("shadow.txt")
+	file, err := os.Create("formats/shadow.txt")
 	if err != nil {
 		fmt.Println(err)
 		return
