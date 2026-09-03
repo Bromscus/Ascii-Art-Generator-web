@@ -14,7 +14,7 @@ type PageData struct {
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
+	if r.URL.Path != "/" && r.URL.Path != "/ascii-art" {
 		http.Error(w, "404: Status page not found Error", http.StatusNotFound)
 		return
 	}
@@ -22,6 +22,19 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	templ, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		http.Error(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
+	if r.URL.Path == "/" && r.Method == http.MethodGet {
+		err = templ.Execute(w, PageData{})
+		if err != nil {
+			http.Error(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+		}
+		return
+	}
+
+	if r.URL.Path == "/ascii-art" && r.Method != http.MethodPost {
+		http.Error(w, "405: Status Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
