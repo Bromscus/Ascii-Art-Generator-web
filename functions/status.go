@@ -51,12 +51,15 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	switch font {
 	case "standard":
+		CloneStandard()
 		fontFile = "formats/standard.txt"
 
 	case "shadow":
+		CloneShadow()
 		fontFile = "formats/shadow.txt"
 
 	case "thinkertoy":
+		CloneThinktertoy()
 		fontFile = "formats/thinkertoy.txt"
 
 	default:
