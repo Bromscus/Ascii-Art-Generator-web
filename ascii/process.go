@@ -4,14 +4,13 @@ import (
 	"strings"
 )
 
-var (
-	
-	num   rune
-)
+var num rune
 
 func Process(text string, data []byte) string {
 	table := [8][]string{}
 	sentence := []rune(text)
+
+	result := ""
 
 	num = 32
 	counter := 1
@@ -25,7 +24,10 @@ func Process(text string, data []byte) string {
 		if v == '\\' && i+1 < len(sentence) && sentence[i+1] == 'n' {
 
 			if len(table[0]) > 0 {
+				result += Print(table[:])
 				table = [8][]string{}
+			} else {
+				result += "\n"
 			}
 
 			i++
@@ -34,14 +36,12 @@ func Process(text string, data []byte) string {
 
 		for flag {
 			if v == num {
-
 				for j := 0; j < 8; j++ {
 					table[j] = append(table[j], lines[counter])
 					counter++
 				}
 
 				flag = false
-
 			} else {
 				num++
 				counter += 9
@@ -54,6 +54,8 @@ func Process(text string, data []byte) string {
 	}
 
 	if len(table[0]) > 0 {
+		result += Print(table[:])
 	}
-	return Print(table[:])
+
+	return result
 }
