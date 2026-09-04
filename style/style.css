@@ -1,9 +1,42 @@
 body {
-	margin: 0;
-	padding: 50px 20px;
-	background-color: #121212;
-	color: #ffffff;
-	font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #282a35;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 6.7px;
+}
+textarea {
+  width: 700px;
+  height: 180px;
+  resize: none;
+  background-color: #373943;
+  color: #c9cdd6;
+}
+select {
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding-left: 16px;
+  height: 30px;
+}
+select:hover {
+  background-color: #04aa6d;
+  color: white;
+}
+button {
+  background-color: #5865f2;
+  color: #ffffff;
+  height: 25px;
+}
 
+button:hover {
+  background-color: #4752c4;
+}
