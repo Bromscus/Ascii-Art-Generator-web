@@ -23,7 +23,7 @@ func IsValid(s string) (string, bool) {
 
 	for _, v := range array {
 		if v < 32 || v > 126 {
-			if v == '\n' || v == '\t' {
+			if v == '\n' || v == '\t' || v == '\r' {
 				continue
 			} else {
 				sr = "Invalid character:" + string(v)
