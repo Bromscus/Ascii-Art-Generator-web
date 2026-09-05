@@ -21,6 +21,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	templ, err := template.ParseFiles("templates/index.html")
 	if err != nil {
+		if os.IsNotExist(err) {
+			http.Error(w, "404: Template Not Found", http.StatusNotFound)
+			return
+		}
+
 		http.Error(w, "500: Status Internal Server Error", http.StatusInternalServerError)
 		return
 	}
@@ -77,6 +82,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	banner, err := os.ReadFile(fontFile)
 	if err != nil {
+		if os.IsNotExist(err) {
+			http.Error(w, "404: Banner Not Found", http.StatusNotFound)
+			return
+		}
+
 		http.Error(w, "500: Status Internal Server Error", http.StatusInternalServerError)
 		return
 	}
