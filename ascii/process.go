@@ -7,7 +7,6 @@ import (
 var num rune
 
 func Process(text string, data []byte) string {
-	text = strings.ReplaceAll(text, "\r", "")
 	text = strings.ReplaceAll(text, "\t", "    ")
 	table := [8][]string{}
 	sentence := []rune(text)
@@ -35,7 +34,7 @@ func Process(text string, data []byte) string {
 			i++
 			continue
 		}
-		if v == '\n' {
+		if v == '\n' || v == '\r' {
 			if len(table[0]) > 0 {
 				result += Print(table[:])
 				table = [8][]string{}
