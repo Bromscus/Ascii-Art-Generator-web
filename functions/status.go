@@ -43,7 +43,15 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	msg, valid := ascii.IsValid(text)
 	if !valid {
-		http.Error(w, msg, http.StatusBadRequest)
+		data := PageData{
+			Font:   font,
+			Result: msg,
+		}
+
+		err = templ.Execute(w, data)
+		if err != nil {
+			http.Error(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+		}
 		return
 	}
 
@@ -51,15 +59,15 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	switch font {
 	case "standard":
-		CloneStandard()
+
 		fontFile = "formats/standard.txt"
 
 	case "shadow":
-		CloneShadow()
+
 		fontFile = "formats/shadow.txt"
 
 	case "thinkertoy":
-		CloneThinktertoy()
+
 		fontFile = "formats/thinkertoy.txt"
 
 	default:
