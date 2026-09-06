@@ -18,6 +18,14 @@ textarea {
   background-color: #373943;
   color: #c9cdd6;
 }
+pre {
+  width: 700px;
+  max-height: 400px;
+  overflow: auto;
+  box-sizing: border-box;
+  background-color: #373943;
+  color: #c9cdd6;
+}
 select {
   background-color: white;
   color: black;
