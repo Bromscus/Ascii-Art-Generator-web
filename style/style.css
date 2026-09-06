@@ -1,7 +1,7 @@
 body {
   display: flex;
   justify-content: center;
-  background-color: #22263b;
+  background-color: #282a35;
   color: #ffffff;
   font-family: Arial, sans-serif;
 }
@@ -17,10 +17,6 @@ textarea {
   resize: none;
   background-color: #373943;
   color: #c9cdd6;
-  font-size: larger;
-  border: 1cap;
-  border-color: whitesmoke;
-  border-style: inset;
 }
 select {
   background-color: white;
