@@ -18,6 +18,9 @@ textarea {
   background-color: #373943;
   color: #c9cdd6;
   font-size: larger;
+  border: 1cap;
+  border-color: whitesmoke;
+  border-style: inset;
 }
 select {
   background-color: white;
