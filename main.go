@@ -15,6 +15,7 @@ func main() {
 		"/style/",
 		http.StripPrefix("/style/", http.FileServer(http.Dir("style"))),
 	)
+	functions.LoadHashes()
 
 	fmt.Println("Server running at http://localhost:8080")
 	fmt.Println(http.ListenAndServe(":8080", nil))
