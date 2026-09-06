@@ -1,6 +1,7 @@
 package functions
 
 import (
+	"fmt"
 	"html/template"
 	"net/http"
 	"os"
@@ -53,9 +54,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			Result: msg,
 		}
 
+		w.WriteHeader(http.StatusBadRequest)
+
 		err = templ.Execute(w, data)
 		if err != nil {
-			http.Error(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+			fmt.Println(err)
 		}
 		return
 	}
@@ -64,29 +67,34 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	switch font {
 	case "standard":
-
+		if !ascii.CheckFile("formats/standard.txt", StandardHash) {
+			http.Error(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+			return
+		}
 		fontFile = "formats/standard.txt"
 
 	case "shadow":
-
+		if !ascii.CheckFile("formats/shadow.txt", ShadowHash) {
+			http.Error(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+			return
+		}
 		fontFile = "formats/shadow.txt"
 
 	case "thinkertoy":
-
+		if !ascii.CheckFile("formats/thinkertoy.txt", ThinkertoyHash) {
+			http.Error(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+			return
+		}
 		fontFile = "formats/thinkertoy.txt"
 
 	default:
+
 		http.Error(w, "400: Status Bad Request", http.StatusBadRequest)
 		return
 	}
 
 	banner, err := os.ReadFile(fontFile)
 	if err != nil {
-		if os.IsNotExist(err) {
-			http.Error(w, "404: Banner Not Found", http.StatusNotFound)
-			return
-		}
-
 		http.Error(w, "500: Status Internal Server Error", http.StatusInternalServerError)
 		return
 	}
