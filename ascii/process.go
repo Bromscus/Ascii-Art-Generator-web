@@ -21,19 +21,6 @@ func Process(text string, data []byte) string {
 
 	for i := 0; i < len(sentence); i++ {
 		v := sentence[i]
-
-		if v == '\\' && i+1 < len(sentence) && sentence[i+1] == 'n' {
-
-			if len(table[0]) > 0 {
-				result += Print(table[:])
-				table = [8][]string{}
-			} else {
-				result += "\n"
-			}
-
-			i++
-			continue
-		}
 		if v == '\n' || v == '\r' {
 			if len(table[0]) > 0 {
 				result += Print(table[:])
