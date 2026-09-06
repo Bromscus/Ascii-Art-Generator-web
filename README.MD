@@ -29,5 +29,5 @@ The project main idea is to switch the input to a stylized format called ascii f
 3. Split the selected banner into lines.
 4. Convert each character into its 8 line ASCII art.
 5. Join the characters together vertically in a horizontal line if there is no new lines.
-6. New lines (Enter key) are accepted along with `\n`.
+6. New lines (Enter key) are accepted.
 7. Return the final ASCII-art result to the user.
