@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"web/functions"
@@ -18,5 +19,5 @@ func main() {
 	functions.LoadHashes()
 
 	fmt.Println("Server running at http://localhost:8080")
-	fmt.Println(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }

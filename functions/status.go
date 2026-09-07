@@ -13,13 +13,16 @@ type PageData struct {
 	Result string
 	Font   string
 }
-
+//
+//templ.Execute basically means we write the final HTML into the HTTP response
+//
 func Handler(w http.ResponseWriter, r *http.Request) {
+	//if the path is neither a / or ascii-art we show this message 
 	if r.URL.Path != "/" && r.URL.Path != "/ascii-art" {
 		http.Error(w, "404: Status page not found Error", http.StatusNotFound)
 		return
 	}
-
+//template allows Go to generate a HTML output
 	templ, err := template.ParseFiles("templates/index.html")
 	if err != nil {
 		if os.IsNotExist(err) {
@@ -30,7 +33,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "500: Status Internal Server Error", http.StatusInternalServerError)
 		return
 	}
-
+	//Display the empty form when the home page is first opened.
 	if r.URL.Path == "/" && r.Method == http.MethodGet {
 		err = templ.Execute(w, PageData{})
 		if err != nil {
@@ -55,7 +58,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		w.WriteHeader(http.StatusBadRequest)
-
+		//just to show the issue along with the status error code
 		err = templ.Execute(w, data)
 		if err != nil {
 			fmt.Println(err)

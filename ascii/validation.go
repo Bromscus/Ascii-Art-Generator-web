@@ -2,7 +2,6 @@ package ascii
 
 import (
 	"crypto/sha256"
-	"fmt"
 	"os"
 )
 
@@ -37,12 +36,13 @@ func IsValid(s string) (string, bool) {
 	return sr, true
 }
 
-func CheckFile(fileName string, expectedHash string) bool {
+func CheckFile(fileName string, expectedHash [32]byte) bool {
 	data, err := os.ReadFile(fileName)
 	if err != nil {
 		return false
 	}
 
-	hash := sha256.Sum256(data)
-	return fmt.Sprintf("%x", hash) == expectedHash
+	currentHash := sha256.Sum256(data)
+
+	return currentHash == expectedHash
 }

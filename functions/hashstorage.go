@@ -7,9 +7,9 @@ import (
 )
 
 var (
-	ShadowHash     string
-	StandardHash   string
-	ThinkertoyHash string
+	ShadowHash     [32]byte
+	StandardHash   [32]byte
+	ThinkertoyHash [32]byte
 )
 
 func LoadHashes() {
@@ -18,35 +18,32 @@ func LoadHashes() {
 	ThinkertoyHash = thinkertoyHash()
 }
 
-func shadowHash() string {
+func shadowHash() [32]byte {
 	data, err := os.ReadFile("formats/shadow.txt")
 	if err != nil {
 		fmt.Println(err)
-		return ""
+		return [32]byte{}
 	}
 
-	hash := sha256.Sum256(data)
-	return fmt.Sprintf("%x", hash)
+	return sha256.Sum256(data)
 }
 
-func standardHash() string {
+func standardHash() [32]byte {
 	data, err := os.ReadFile("formats/standard.txt")
 	if err != nil {
 		fmt.Println(err)
-		return ""
+		return [32]byte{}
 	}
 
-	hash := sha256.Sum256(data)
-	return fmt.Sprintf("%x", hash)
+	return sha256.Sum256(data)
 }
 
-func thinkertoyHash() string {
+func thinkertoyHash() [32]byte {
 	data, err := os.ReadFile("formats/thinkertoy.txt")
 	if err != nil {
 		fmt.Println(err)
-		return ""
+		return [32]byte{}
 	}
 
-	hash := sha256.Sum256(data)
-	return fmt.Sprintf("%x", hash)
+	return sha256.Sum256(data)
 }
