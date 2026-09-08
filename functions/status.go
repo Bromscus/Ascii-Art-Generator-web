@@ -20,13 +20,13 @@ type PageData struct {
 func Handler(w http.ResponseWriter, r *http.Request) {
 	// if the path is neither a / or ascii-art we show this message
 	if r.URL.Path != "/" && r.URL.Path != "/ascii-art" {
-		ErrorPage(w, "404: Status page not found Error", http.StatusNotFound)
+		ErrorPage(w, "404: page not found", http.StatusNotFound)
 
 		return
 	}
 	// template allows Go to generate a HTML output
 	if !ascii.CheckFile("templates/index.html", htmlHash) {
-		ErrorPage(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+		ErrorPage(w, "500: Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 	templ, err := template.ParseFiles("templates/index.html")
@@ -36,20 +36,20 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		ErrorPage(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+		ErrorPage(w, "500: Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 	// Display the empty form when the home page is first opened.
 	if r.URL.Path == "/" && r.Method == http.MethodGet {
 		err = templ.Execute(w, PageData{})
 		if err != nil {
-			ErrorPage(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+			ErrorPage(w, "500: Internal Server Error", http.StatusInternalServerError)
 		}
 		return
 	}
 	// If the user sends a non post request to /ascii-art
 	if r.URL.Path == "/ascii-art" && r.Method != http.MethodPost {
-		ErrorPage(w, "405: Status Method Not Allowed", http.StatusMethodNotAllowed)
+		ErrorPage(w, "405: Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
 	// text is the input in the text area
@@ -63,7 +63,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			Font:   font,
 			Result: msg,
 		}
-		// the server sends the https response header that has status code (can be viewed in the network section in the inspect of the browser)
+		// the server sends the https response header that has code (can be viewed in the network section in the inspect of the browser)
 		// a http response header is a metadata, in simple terms like a package of data
 		w.WriteHeader(http.StatusBadRequest)
 		// just to show the issue along with the status error code
@@ -79,34 +79,34 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	switch font {
 	case "standard":
 		if !ascii.CheckFile("formats/standard.txt", StandardHash) {
-			ErrorPage(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+			ErrorPage(w, "500: Internal Server Error", http.StatusInternalServerError)
 			return
 		}
 		fontFile = "formats/standard.txt"
 
 	case "shadow":
 		if !ascii.CheckFile("formats/shadow.txt", ShadowHash) {
-			ErrorPage(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+			ErrorPage(w, "500: Internal Server Error", http.StatusInternalServerError)
 			return
 		}
 		fontFile = "formats/shadow.txt"
 
 	case "thinkertoy":
 		if !ascii.CheckFile("formats/thinkertoy.txt", ThinkertoyHash) {
-			ErrorPage(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+			ErrorPage(w, "500: Internal Server Error", http.StatusInternalServerError)
 			return
 		}
 		fontFile = "formats/thinkertoy.txt"
 
 	default:
 
-		ErrorPage(w, "400: Status Bad Request", http.StatusBadRequest)
+		ErrorPage(w, "400: Bad Request", http.StatusBadRequest)
 		return
 	}
 
 	banner, err := os.ReadFile(fontFile)
 	if err != nil {
-		ErrorPage(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+		ErrorPage(w, "500: Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 
@@ -117,7 +117,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 	err = templ.Execute(w, data)
 	if err != nil {
-		ErrorPage(w, "500: Status Internal Server Error", http.StatusInternalServerError)
+		ErrorPage(w, "500: Internal Server Error", http.StatusInternalServerError)
 		return
 	}
 }
