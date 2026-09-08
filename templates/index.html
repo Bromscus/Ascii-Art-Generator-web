@@ -9,7 +9,7 @@
     <main>
       <form action="/ascii-art" method="POST">
         <textarea
-        maxlength="100"
+          maxlength="100"
           name="text"
           placeholder="Write the input you want to change to ascii. The character limit is 100."
         ></textarea>
@@ -20,7 +20,7 @@
         </select>
         <button type="submit">Generate</button>
       </form>
-      <pre>{{.Result}}</pre>
+      <pre class="home-result">{{.Result}}</pre>
     </main>
   </body>
 </html>

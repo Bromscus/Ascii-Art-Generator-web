@@ -18,7 +18,7 @@ textarea {
   background-color: #373943;
   color: #c9cdd6;
 }
-pre {
+.home-result {
   width: 700px;
   max-height: 400px;
   overflow: auto;
@@ -45,4 +45,10 @@ button {
 
 button:hover {
   background-color: #4752c4;
+}
+.error-result{
+  justify-content: center;
+  color: white;
+  font-size: 30px;
+
 }
