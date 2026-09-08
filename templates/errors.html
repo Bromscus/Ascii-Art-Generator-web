@@ -7,12 +7,9 @@
     <title>Ascii-art-web</title>
   </head>
   <body class="error-body">
-    <pre class="error-result">{{.}}</pre>
+    <pre class="error-result">{{.Error}}</pre>
     <div class="message-level">
-      <p>
-        Please check that the Website address is spelled correctly or go to our
-        home page
-      </p>
+      <p>{{.Message}}</p>
       <a href="index.html">Go back to the homepage</a>
     </div>
   </body>
