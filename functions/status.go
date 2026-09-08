@@ -41,12 +41,13 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-
+	//If the user sends a non post request to /ascii-art
 	if r.URL.Path == "/ascii-art" && r.Method != http.MethodPost {
 		http.Error(w, "405: Status Method Not Allowed", http.StatusMethodNotAllowed)
 		return
 	}
-
+	//text is the input in the text area
+	//font is the banner
 	text := r.FormValue("text")
 	font := r.FormValue("styles")
 
@@ -56,7 +57,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			Font:   font,
 			Result: msg,
 		}
-
+		//the server sends the https response header that has status code (can be viewed in the network section in the inspect of the browser)
+		//a http response header is a metadata, in simple terms like a package of data
 		w.WriteHeader(http.StatusBadRequest)
 		//just to show the issue along with the status error code
 		err = templ.Execute(w, data)

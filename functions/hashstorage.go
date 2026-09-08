@@ -17,7 +17,7 @@ func LoadHashes() {
 	StandardHash = standardHash()
 	ThinkertoyHash = thinkertoyHash()
 }
-
+//SHA-256 cryptographic hash algorithm
 func shadowHash() [32]byte {
 	data, err := os.ReadFile("formats/shadow.txt")
 	if err != nil {
