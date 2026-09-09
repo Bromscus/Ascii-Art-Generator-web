@@ -123,7 +123,7 @@ button:hover {
 
 .error-result {
   color: white;
-  font-size: 30px;
+  font-size: 34px;
 }
 
 .message-level {
@@ -135,10 +135,12 @@ button:hover {
 
 p {
   color: #c9cdd6;
+  font-size: 24px;
 }
 
 a {
   color: #5865f2;
+  font-size: 24px;
 }
 
 a:hover {
@@ -186,7 +188,11 @@ a:hover {
   }
 
   .error-result {
-    font-size: 22px;
+    font-size: 30px;
+  }
+  p,
+  a {
+    font-size: 26px;
   }
 
   .message-level {
@@ -228,7 +234,13 @@ a:hover {
   }
 
   .error-result {
-    font-size: 18px;
+    font-size: 24px;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+  }
+  p,
+  a {
+    font-size: 20px;
   }
 
   .message-level {
