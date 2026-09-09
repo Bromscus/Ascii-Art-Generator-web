@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   height: 100%;
   margin: 0;
@@ -15,7 +19,7 @@ body {
 main {
   width: 90%;
   max-width: 900px;
-  min-height: 100vh;
+  flex-grow: 1;
 
   display: flex;
   flex-direction: column;
@@ -38,9 +42,8 @@ form {
 }
 
 textarea {
-  width: 75%;
+  flex: 3;
   height: 220px;
-  box-sizing: border-box;
   resize: none;
 
   background-color: #2f3038;
@@ -57,7 +60,7 @@ textarea {
   justify-content: center;
   gap: 12px;
 
-  width: 25%;
+  flex: 1;
 }
 
 .options label {
@@ -98,7 +101,6 @@ button:hover {
 .home-result {
   width: 100vw;
   flex-grow: 1;
-  box-sizing: border-box;
   overflow: auto;
   background-color: #373943;
   color: #c9cdd6;
@@ -158,6 +160,7 @@ a:hover {
   }
 
   textarea {
+    flex: none;
     width: 100%;
     height: 160px;
     font-size: 100%;
