@@ -11,16 +11,33 @@ The project main idea is to switch the input to a stylized format called ascii f
 
 ## Usage: how to run
 
+### Option 1: Run directly with Go
+
 1. From the root project directory, start the server:
 
-   ```bash
+```bash
    go run .
-   ```
+```
 
 2. Open http://localhost:8080 in a browser.
 
 3. Enter text, select a banner style, and submit the form to generate ASCII art.
 
+### Option 2: Run with Docker
+
+1. Build the image:
+
+```bash
+   docker build -t ascii-art-web .
+```
+
+2. Run a container from the image:
+
+```bash
+   docker run -p 8080:8080 ascii-art-web
+```
+
+3. Open http://localhost:8080 in a browser.
 
 ## Implementation details: algorithm
 
