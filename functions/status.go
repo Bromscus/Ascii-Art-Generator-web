@@ -12,6 +12,7 @@ import (
 type PageData struct {
 	Result string
 	Font   string
+	Title  string
 }
 
 //
@@ -36,7 +37,17 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 	// Display the empty form when the home page is first opened.
 	if r.URL.Path == "/" && r.Method == http.MethodGet {
-		err = templ.Execute(w, PageData{})
+		banner, readErr := os.ReadFile("formats/thinkertoy.txt")
+		if readErr != nil {
+			ErrorPage(w, "500: Internal Server Error", "Something went wrong on the server.", http.StatusInternalServerError)
+			return
+		}
+
+		data := PageData{
+			Title:  Header(),
+			Result: ascii.Process("THE RESULT SECTION:", banner),
+		}
+		err = templ.Execute(w, data)
 		if err != nil {
 			ErrorPage(w, "500: Internal Server Error", "Something went wrong on the server.", http.StatusInternalServerError)
 		}
@@ -56,6 +67,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	if !valid {
 		data := PageData{
 			Font:   font,
+			Title:  Header(),
 			Result: msg,
 		}
 		// the server sends the https response header that has code (can be viewed in the network section in the inspect of the browser)
@@ -105,8 +117,10 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	title := Header()
 	data := PageData{
 		Font:   font,
+		Title:  title,
 		Result: ascii.Process(text, banner),
 	}
 

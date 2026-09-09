@@ -2,23 +2,40 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ascii-art-web</title>
     <link rel="stylesheet" href="/style/style.css" />
   </head>
-  <body class = "homepage-body">
+  <body class="homepage-body">
     <main>
+      <pre class="ascii-header">{{.Title}}</pre>
       <form action="/ascii-art" method="POST">
-        <textarea
-          maxlength="100"
-          name="text"
-          placeholder="Write the input you want to change to ascii. The character limit is 100."
-        ></textarea>
-        <select name="styles" id="styles">
-          <option value="standard">standard</option>
-          <option value="thinkertoy">thinkertoy</option>
-          <option value="shadow">shadow</option>
-        </select>
-        <button type="submit">Generate</button>
+        <div class="input-section">
+          <textarea
+            maxlength="100"
+            name="text"
+            placeholder="Write the input you want to change to ascii. The character limit is 100."
+          ></textarea>
+
+          <div class="options">
+            <label>
+              <input type="radio" name="styles" value="standard" checked />
+              Standard
+            </label>
+
+            <label>
+              <input type="radio" name="styles" value="thinkertoy" />
+              Thinkertoy
+            </label>
+
+            <label>
+              <input type="radio" name="styles" value="shadow" />
+              Shadow
+            </label>
+
+            <button type="submit">Generate</button>
+          </div>
+        </div>
       </form>
       <pre class="home-result">{{.Result}}</pre>
     </main>
