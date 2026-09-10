@@ -12,12 +12,13 @@ body {
   background-color: #121212;
   color: #ffffff;
   font-family: Arial, sans-serif;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 main {
-  
   max-width: 900px;
+  height: 100vh;
   display: flex;
   flex-grow: 1;
   flex-direction: column;
@@ -43,11 +44,9 @@ textarea {
   flex: 3;
   height: 220px;
   resize: none;
-
   background-color: #2f3038;
   color: #e6e6e6;
   font-size: 125%;
-
   border: 1px solid #555761;
   border-radius: 6px;
 }
@@ -64,22 +63,15 @@ textarea {
   display: flex;
   align-items: center;
   gap: 8px;
-
   padding: 10px;
-
   background-color: #3a3b44;
   border-radius: 8px;
-
 }
 
 .options label:hover {
   background-color: #484a55;
 }
 
-.options input[type="radio"] {
-  accent-color: #5865f2;
-  cursor: pointer;
-}
 
 button {
   background-color: #0066ff;
@@ -96,10 +88,12 @@ button:hover {
 .home-result {
   width: 100vw;
   flex-grow: 1;
+  min-height: 0;
   overflow: auto;
   background-color: #373943;
   color: #c9cdd6;
-  margin-bottom: 0%;
+  margin-top: 15px;
+  margin-bottom: 0;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -111,7 +105,6 @@ button:hover {
   display: flex;
   align-items: center;
   flex-direction: column;
-
   background-color: #282a35;
   font-family: Arial, sans-serif;
 }
@@ -142,7 +135,9 @@ a {
 a:hover {
   color: #4752c4;
 }
-/* tablet */
+
+/* Tablet */
+
 @media screen and (max-width: 768px) {
   .ascii-header {
     font-size: 12px;
@@ -186,6 +181,7 @@ a:hover {
   .error-result {
     font-size: 30px;
   }
+
   p,
   a {
     font-size: 26px;
@@ -195,12 +191,15 @@ a:hover {
     gap: 4px;
   }
 }
-/* phone */
+
+/* Phone */
+
 @media screen and (max-width: 480px) {
   main {
     width: 100%;
     padding: 0 10px;
   }
+
   .ascii-header {
     font-size: 6px;
     overflow-x: auto;
@@ -234,6 +233,7 @@ a:hover {
     white-space: pre-wrap;
     overflow-wrap: break-word;
   }
+
   p,
   a {
     font-size: 20px;
