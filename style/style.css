@@ -3,7 +3,6 @@
 }
 
 body {
-  height: 100%;
   margin: 0;
 }
 
@@ -17,11 +16,10 @@ body {
 }
 
 main {
-  width: 90%;
+  
   max-width: 900px;
-  flex-grow: 1;
-
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
 }
 
@@ -59,7 +57,6 @@ textarea {
   flex-direction: column;
   justify-content: center;
   gap: 12px;
-
   flex: 1;
 }
 
@@ -73,8 +70,6 @@ textarea {
   background-color: #3a3b44;
   border-radius: 8px;
 
-  cursor: pointer;
-  transition: 0.2s;
 }
 
 .options label:hover {
@@ -123,6 +118,7 @@ button:hover {
 
 .error-result {
   color: white;
+  font-family: Arial, sans-serif;
   font-size: 34px;
 }
 
