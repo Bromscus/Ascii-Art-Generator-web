@@ -8,9 +8,9 @@ RUN CGO_ENABLED=0 go build -o server .
 
 FROM alpine:latest
 
-LABEL maintainer="asami, ahmsalem"
-LABEL description="Ascii-Art-Web - converts text to Ascii art banners"
-LABEL version="1.0"
+LABEL maintainer="asami, ahmsalem" \
+      description="Ascii-Art-Web - converts text to Ascii art banners" \
+      version="1.0"
 
 WORKDIR /app
 COPY --from=builder /app/server .
