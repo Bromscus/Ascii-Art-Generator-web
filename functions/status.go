@@ -37,15 +37,8 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 	// Display the empty form when the home page is first opened.
 	if r.URL.Path == "/" && r.Method == http.MethodGet {
-		banner, readErr := os.ReadFile("formats/thinkertoy.txt")
-		if readErr != nil {
-			ErrorPage(w, "500: Internal Server Error", "Something went wrong on the server.", http.StatusInternalServerError)
-			return
-		}
-
 		data := PageData{
-			Title:  Header(),
-			Result: ascii.Process("THE RESULT SECTION:", banner),
+			Title: Header(),
 		}
 		err = templ.Execute(w, data)
 		if err != nil {

@@ -13,28 +13,26 @@ var (
 )
 
 func Header() string {
-	for {
-		num := 2
+	banners := []struct {
+		file string
+		hash [32]byte
+	}{
+		{"formats/thinkertoy.txt", ThinkertoyHash},
+		{"formats/standard.txt", StandardHash},
+		{"formats/shadow.txt", ShadowHash},
+	}
 
-		switch num {
-		case 0:
-
-			banner = "formats/standard.txt"
-			hash = StandardHash
-		case 1:
-
-			banner = "formats/shadow.txt"
-			hash = ShadowHash
-
-		case 2:
-
-			banner = "formats/thinkertoy.txt"
-			hash = ThinkertoyHash
+	banner = ""
+	for _, candidate := range banners {
+		if ascii.CheckFile(candidate.file, candidate.hash) {
+			banner = candidate.file
+			hash = candidate.hash
+			break
 		}
-		if !ascii.CheckFile(banner, hash) {
-			continue
-		}
-		break
+	}
+
+	if banner == "" {
+		return ""
 	}
 
 	title := ""
