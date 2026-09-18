@@ -21,10 +21,7 @@ func ExportHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, status, err := generateResult(
-		r.FormValue("text"),
-		r.FormValue("styles"),
-	)
+	result, status, err := generateResult(r.FormValue("text"), r.FormValue("styles"))
 	if err != nil {
 		message := "The request could not be processed. Please check your input and try again."
 		if status == http.StatusInternalServerError {
