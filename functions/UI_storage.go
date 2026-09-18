@@ -7,12 +7,7 @@ import (
 	"web/ascii"
 )
 
-var (
-	hash   [32]byte
-	banner string
-)
-
-func Header() string {
+func Header(text string) string {
 	banners := []struct {
 		file string
 		hash [32]byte
@@ -22,26 +17,19 @@ func Header() string {
 		{"formats/shadow.txt", ShadowHash},
 	}
 
-	banner = ""
 	for _, candidate := range banners {
-		if ascii.CheckFile(candidate.file, candidate.hash) {
-			banner = candidate.file
-			hash = candidate.hash
-			break
+		if !ascii.CheckFile(candidate.file, candidate.hash) {
+			continue
 		}
+
+		data, err := os.ReadFile(candidate.file)
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
+
+		return ascii.Process(text, data)
 	}
 
-	if banner == "" {
-		return ""
-	}
-
-	title := ""
-	data, err := os.ReadFile(banner)
-	if err != nil {
-		fmt.Println(err)
-		return ""
-	}
-
-	title = ascii.Process("Ascii Art Generator", data)
-	return title
+	return ""
 }
