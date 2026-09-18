@@ -1,6 +1,7 @@
 package functions
 
 import (
+	"crypto/sha256"
 	"fmt"
 	"net/http"
 	"os"
@@ -8,7 +9,6 @@ import (
 
 	"web/ascii"
 )
-
 
 func ExportHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
@@ -21,17 +21,25 @@ func ExportHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	result, status, err := generateResult(r.FormValue("text"), r.FormValue("styles"))
+	result, status, err := generateResult(
+		r.FormValue("text"),
+		r.FormValue("styles"),
+	)
 	if err != nil {
-		ErrorPage(w, err.Error(), "The request could not be processed. Please check your input and try again.", status)
+		message := "The request could not be processed. Please check your input and try again."
+		if status == http.StatusInternalServerError {
+			message = "Something went wrong on the server."
+		}
+		ErrorPage(w, err.Error(), message, status)
 		return
 	}
 
 	file := []byte(result)
+
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Header().Set("Content-Length", strconv.Itoa(len(file)))
 	w.Header().Set("Content-Disposition", `attachment; filename="ascii-art.txt"`)
-	w.WriteHeader(http.StatusOK)
+
 	if _, err := w.Write(file); err != nil {
 		fmt.Println(err)
 	}
@@ -39,34 +47,33 @@ func ExportHandler(w http.ResponseWriter, r *http.Request) {
 
 func generateResult(text, font string) (string, int, error) {
 	if msg, valid := ascii.IsValid(text); !valid {
-		return "", http.StatusBadRequest, fmt.Errorf("400: Bad Request: %s", msg)
+		return "", http.StatusBadRequest,
+			fmt.Errorf("400: Bad Request: %s", msg)
 	}
 
-	fontFiles := map[string]string{
-		"standard":   "formats/standard.txt",
-		"shadow":     "formats/shadow.txt",
-		"thinkertoy": "formats/thinkertoy.txt",
-	}
-	fontFile, ok := fontFiles[font]
-	if !ok {
-		return "", http.StatusBadRequest, fmt.Errorf("400: Bad Request")
+	var fontFile string
+	var hash [32]byte
+
+	switch font {
+	case "standard":
+		fontFile = "formats/standard.txt"
+		hash = StandardHash
+	case "shadow":
+		fontFile = "formats/shadow.txt"
+		hash = ShadowHash
+	case "thinkertoy":
+		fontFile = "formats/thinkertoy.txt"
+		hash = ThinkertoyHash
+	default:
+		return "", http.StatusBadRequest,
+			fmt.Errorf("400: Bad Request")
 	}
 
 	banner, err := os.ReadFile(fontFile)
-	if err != nil || !ascii.CheckFile(fontFile, expectedHash(font)) {
-		return "", http.StatusInternalServerError, fmt.Errorf("500: Internal Server Error")
+	if err != nil || sha256.Sum256(banner) != hash {
+		return "", http.StatusInternalServerError,
+			fmt.Errorf("500: Internal Server Error")
 	}
 
 	return ascii.Process(text, banner), http.StatusOK, nil
-}
-
-func expectedHash(font string) [32]byte {
-	switch font {
-	case "standard":
-		return StandardHash
-	case "shadow":
-		return ShadowHash
-	default:
-		return ThinkertoyHash
-	}
 }
