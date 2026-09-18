@@ -88,6 +88,7 @@ button:hover {
 
 .home-result {
   width: 100vw;
+  padding: 10px;
   flex-grow: 1;
   min-height: 0;
   overflow: auto;
