@@ -50,10 +50,6 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		ErrorPage(w, "405: Method Not Allowed", "This request method is not allowed for this page.", http.StatusMethodNotAllowed)
 		return
 	}
-	if r.URL.Path == "/style/" {
-		ErrorPage(w, "405: Method Not Allowed", "This request method is not allowed for this page.", http.StatusMethodNotAllowed)
-		return
-	}
 	// text is the input in the text area
 	// font is the banner
 	text := r.FormValue("text")
