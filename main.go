@@ -11,6 +11,7 @@ import (
 func main() {
 	http.HandleFunc("/", functions.Handler)
 	http.HandleFunc("/ascii-art", functions.Handler)
+	http.HandleFunc("/export", functions.ExportHandler)
 
 	http.Handle(
 		"/style/",

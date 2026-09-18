@@ -15,9 +15,7 @@ type PageData struct {
 	Title  string
 }
 
-//
-//templ.Execute basically means we write the final HTML into the HTTP response
-//
+// templ.Execute basically means we write the final HTML into the HTTP response
 func Handler(w http.ResponseWriter, r *http.Request) {
 	// if the path is neither a / or ascii-art we show this message
 	if r.URL.Path != "/" && r.URL.Path != "/ascii-art" {
@@ -37,8 +35,19 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 	// Display the empty form when the home page is first opened.
 	if r.URL.Path == "/" && r.Method == http.MethodGet {
+		if !ascii.CheckFile("formats/thinkertoy.txt", ThinkertoyHash) {
+			ErrorPage(w, "500: Internal Server Error", "Something went wrong on the server.", http.StatusInternalServerError)
+			return
+		}
+		banner, readErr := os.ReadFile("formats/thinkertoy.txt")
+		if readErr != nil {
+			ErrorPage(w, "500: Internal Server Error", "Something went wrong on the server.", http.StatusInternalServerError)
+			return
+		}
+
 		data := PageData{
-			Title: Header(),
+			Title:  Header(),
+			Result: ascii.Process("THE RESULT SECTION:", banner),
 		}
 		err = templ.Execute(w, data)
 		if err != nil {
@@ -48,6 +57,10 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 	// If the user sends a non post request to /ascii-art
 	if r.URL.Path == "/ascii-art" && r.Method != http.MethodPost {
+		ErrorPage(w, "405: Method Not Allowed", "This request method is not allowed for this page.", http.StatusMethodNotAllowed)
+		return
+	}
+	if r.URL.Path == "/style/" {
 		ErrorPage(w, "405: Method Not Allowed", "This request method is not allowed for this page.", http.StatusMethodNotAllowed)
 		return
 	}
